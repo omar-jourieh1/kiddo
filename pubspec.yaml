@@ -1,0 +1,50 @@
+name: kiddo
+description: The kiddo ebook application is to help children read in a fun and simple way
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.2
+  lottie: ^2.3.2
+  audioplayers: ^4.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+
+  uses-material-design: true
+
+  assets:
+  - assets/
+  - assets/images/
+  - assets/audios/
+  - assets/lottie/
+  - assets/fonts/
+
+
+fonts:
+- family: Cairo
+  fonts:
+  - asset: assets/fonts/Cairo-Regular
+  - asset: assets/fonts/Cairo-Black.ttf
+    style: Black
+- family: SunnyspellsRegular
+  fonts:
+  - asset: assets/fonts/SunnyspellsRegular-MV9ze.otf
+    style: normal
+    weight: 700
+

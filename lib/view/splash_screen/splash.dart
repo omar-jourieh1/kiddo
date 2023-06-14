@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../controller/controller.dart';
@@ -34,14 +35,14 @@ class _SplashState extends State<Splash> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Lottie.asset(Assets.animatedSplashIcon, repeat: false),
-              const SizedBox(
-                height: 10,
+               SizedBox(
+                height: 10.h,
               ),
               Text(
                 'Kiddo - كيدو',
                 style: TextStyle(
                     color: Styles.fontColorSecondary,
-                    fontSize: 42,
+                    fontSize: 42.sp,
                     fontWeight: FontWeight.bold),
               )
             ],

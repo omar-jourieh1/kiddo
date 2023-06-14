@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiddo/core/style/colors.dart';
 import 'package:lottie/lottie.dart';
 
@@ -16,25 +17,25 @@ class OnboradContent extends StatelessWidget {
       // mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Spacer(),
-        Lottie.asset(image, height: 350),
-        const SizedBox(
-          height: 10,
+        Lottie.asset(image, height: 350.h),
+        SizedBox(
+          height: 10.h,
         ),
         Text(
           title,
           style: TextStyle(
-              fontSize: 28,
+              fontSize: 32.sp,
               fontFamily: 'Cairo',
               color: Styles.fontColorWhite,
               fontWeight: FontWeight.w700),
         ),
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: 10.h,
         ),
         Text(
           description,
           style: TextStyle(
-              fontSize: 16,
+              fontSize: 24.sp,
               fontFamily: 'Cairo',
               color: Styles.fontColorWhite,
               fontWeight: FontWeight.w400),

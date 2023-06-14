@@ -11,3 +11,12 @@ homeAudio() async {
   final player = AudioPlayer();
   await player.play(AssetSource(Assets.homeAudio));
 }
+
+pageTrainstionAudio() async {
+  final player = AudioPlayer();
+  await player.play(AssetSource(Assets.pageTrainstionAudio));
+}
+successAudio() async {
+  final player = AudioPlayer();
+  await player.play(AssetSource(Assets.successAudio));
+}

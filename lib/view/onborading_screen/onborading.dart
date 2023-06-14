@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../controller/controller.dart';
 import '../../core/style/colors.dart';
@@ -14,6 +15,7 @@ class OnBorading extends StatefulWidget {
 
 class _OnBoradingState extends State<OnBorading> {
   late PageController _pageController;
+  bool visibleSkipButton = false;
   @override
   void initState() {
     _pageController = PageController(initialPage: 0);
@@ -34,8 +36,14 @@ class _OnBoradingState extends State<OnBorading> {
           children: [
             Expanded(
               child: PageView.builder(
-                onPageChanged: (vlaue) {
-                  setState(() {});
+                onPageChanged: (value) {
+                  setState(() {
+                    if (value >= 1) {
+                      visibleSkipButton = true;
+                    } else {
+                      visibleSkipButton = false;
+                    }
+                  });
                 },
                 itemCount: onborading_data.length,
                 controller: _pageController,
@@ -46,28 +54,55 @@ class _OnBoradingState extends State<OnBorading> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 60,
-              width: 250,
-              child: ElevatedButton(
-                child: const Icon(
-                  Icons.arrow_forward,
-                  size: 21,
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: AnimatedContainer(
+                height: visibleSkipButton ? 160.h : 80.h,
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.bounceIn,
+                child: Row(
+                  children: [
+                    Visibility(
+                      visible: visibleSkipButton,
+                      child: ElevatedButton(
+                        child: const Text(
+                          'تخطي',
+                          style: TextStyle(),
+                        ),
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, '/home');
+                          homeAudio();
+                        },
+                      ),
+                    ),
+                    const Spacer(),
+                    ElevatedButton(
+                      child: Icon(
+                        Icons.arrow_forward,
+                        size: 50.h,
+                      ),
+                      onPressed: () {
+                        if (_pageController.page == 2) {
+                          Navigator.pushReplacementNamed(context, '/home');
+                          homeAudio();
+                        } else {
+                          if (_pageController.page! >= 1) {
+                            visibleSkipButton = true;
+                          } else {
+                            visibleSkipButton = false;
+                          }
+                          _pageController.nextPage(
+                              duration: const Duration(seconds: 1),
+                              curve: Curves.easeInCubic);
+                        }
+                      },
+                    ),
+                  ],
                 ),
-                onPressed: () {
-                  if (_pageController.page == 2) {
-                    Navigator.pushReplacementNamed(context, '/home');
-                    homeAudio();
-                  } else {
-                    _pageController.nextPage(
-                        duration: const Duration(seconds: 1),
-                        curve: Curves.easeInCubic);
-                  }
-                },
               ),
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 20.h,
             )
           ],
         ));

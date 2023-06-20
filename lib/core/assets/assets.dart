@@ -12,9 +12,11 @@ class Assets {
 
 
 // Bottom Nav Bar Icons
-  static const homeJson = 'assets/lottie/home-icon-animation.json';
-  static const searchJson = 'assets/lottie/search.json';
-  static const settingsJson = 'assets/lottie/settings.json';
+  static const homeIcon = 'assets/lottie/home-icon-animation.json';
+  static const searchIcon = 'assets/lottie/search.json';
+  static const settingsIcon = 'assets/lottie/settings.json';
+    static const cartIcon = 'assets/lottie/cart.json';
+      static const gameIcon = 'assets/lottie/gamecontroller.json';
   static const pageTrainstionAudio = 'audios/sloth-inspired-imaginary.mp3';
 
   //settings

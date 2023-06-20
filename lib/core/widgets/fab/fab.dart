@@ -12,7 +12,7 @@ Widget floatingActionWidget({final VoidCallback? onPressed}) {
     fillColor: const Color(0xffFFED8C),
     onPressed: onPressed,
     child: LottieBuilder.asset(
-      Assets.searchJson,
+      Assets.searchIcon,
       width: 35.w,
     ),
   );

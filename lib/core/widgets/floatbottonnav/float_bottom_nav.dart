@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../assets/assets.dart';
 
-List<String> data = [Assets.welcomeJson,Assets.homeJson, Assets.settingsJson];
+List<String> data = [Assets.gameIcon, Assets.homeIcon, Assets.cartIcon];
 
-Material FloatBottomAppBar(
+Material floatBottomAppBar(
     {required Widget? Function(BuildContext, int) itemBuilder}) {
   return Material(
       color: const Color(0xffFFF5BE),

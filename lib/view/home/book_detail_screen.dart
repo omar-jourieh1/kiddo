@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kiddo/providers/cart_prodvider.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import '../../core/assets/assets.dart';
+import '../../core/widgets/book_details/book_details.dart';
 import '../../model/home/bookModel.dart';
 import '../../providers/detail_provider.dart';
 import '../../providers/home_provider.dart';
@@ -14,9 +18,14 @@ class BookDetailScreen extends StatelessWidget {
   });
 
   final String? bookId;
+  bool _isBookListNotEmpty(BuildContext context) {
+    return Provider.of<HomeProvider>(context, listen: false).books.isNotEmpty;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -37,7 +46,16 @@ class BookDetailScreen extends StatelessWidget {
             },
           ),
         ),
-        bottomNavigationBar: _bottomNavWidget(),
+        bottomNavigationBar: bottomNavWidget(
+          onTap: () async {
+            final url = DetailProvider.bookUrl;
+            if (url != null) {
+              if (!await launch(url)) {
+                throw 'Could not launch $url';
+              }
+            }
+          },
+        ),
         body: FutureBuilder<BookModel?>(
           future: DetailProvider().getBookDetail(bookId),
           builder: (context, apiResponse) {
@@ -79,54 +97,63 @@ class BookDetailScreen extends StatelessWidget {
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 16, right: 16, top: 16),
+                    child: Image.network(
+                      bookModel?.thumbnail ?? "-",
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 16, right: 16, top: 16),
                     child: Text(
-                      bookModel?.subtitle ?? "-",
+                      'subtitle: "${bookModel?.subtitle ?? 'no subtitle for this book'}',
                       style: const TextStyle(color: Colors.black, fontSize: 14),
                     ),
                   ),
-                  SizedBox(
-                      height: 500,
-                      child: WebView(
-                        backgroundColor: Colors.black,
-                        initialUrl: bookModel?.bookUrl,
-                      )),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 16, right: 16, top: 16),
+                    child: Text(
+                      'description: "${bookModel?.description ?? 'no description for this book'}',
+                      style: const TextStyle(color: Colors.black, fontSize: 14),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: SizedBox(
+                      height: 70.h,
+                      child: MaterialButton(
+                        color: Colors.orange,
+                        onPressed: () {
+                          cartProvider.toggleCart(bookModel?.title ?? '',
+                              bookModel?.thumbnail ?? '');
+                        },
+                        child: cartProvider.isExist(bookModel?.title ?? '',
+                                bookModel?.thumbnail ?? '')
+                            ? const Icon(
+                                Icons.thumb_up,
+                              )
+                            : Row(
+                                children: [
+                                  const Text('اضف الى السلة'),
+                                  const Spacer(),
+                                  LottieBuilder.asset(Assets.cartIcon),
+                                ],
+                              ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             );
           },
         ),
       ),
-    );
-  }
-
-  bool _isBookListNotEmpty(BuildContext context) {
-    return Provider.of<HomeProvider>(context, listen: false).books.isNotEmpty;
-  }
-
-  Widget _bottomNavWidget() {
-    final widget = Container(
-      decoration: const BoxDecoration(color: Color(0xffFFF5BE), boxShadow: [
-        BoxShadow(color: Color(0xffFFED8C), offset: Offset(1, 2))
-      ]),
-      child: const Padding(
-        padding: EdgeInsets.all(16),
-        child: Text(
-          "اشتري الكتاب",
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.black, fontSize: 20),
-        ),
-      ),
-    );
-    return InkWell(
-      child: widget,
-      onTap: () async {
-        final url = DetailProvider.bookUrl;
-        if (url != null) {
-          if (!await launch(url)) {
-            throw 'Could not launch $url';
-          }
-        }
-      },
     );
   }
 }

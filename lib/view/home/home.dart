@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 import '../../controller/controller.dart';
 import '../../core/widgets/floatbottonnav/float_bottom_nav.dart';
 import '../colorgame/colorgame.dart';
-import '../settings/settingspage.dart';
+import '../cart/cartpage.dart';
 import 'homepage.dart';
 
 class Home extends StatefulWidget {
@@ -34,14 +34,14 @@ class _HomeState extends State<Home> {
   final List<Widget> _pages = [
     const ColorGame(),
     const HomePage(),
-    const SettingsPage()
+    const CartPage()
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(25.0.r),
-        child: FloatBottomAppBar(
+        child: floatBottomAppBar(
           itemBuilder: (ctx, index) => Padding(
             padding: EdgeInsets.symmetric(horizontal: 30.w),
             child: GestureDetector(

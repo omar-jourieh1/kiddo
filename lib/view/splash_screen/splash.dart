@@ -21,8 +21,10 @@ class _SplashState extends State<Splash> {
     super.initState();
 
     splashAudio();
+
     Future.delayed(const Duration(seconds: 7))
         .then((value) => {Navigator.pushReplacementNamed(context, '/onBoradingScreen')});
+        
   }
 
   @override
